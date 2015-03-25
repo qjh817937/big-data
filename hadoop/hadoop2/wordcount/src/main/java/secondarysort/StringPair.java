@@ -14,18 +14,18 @@ public class StringPair  implements WritableComparable<StringPair> {
     /**
      * timestamp
      */
-    private String second;
+    private Long second;
 
     public StringPair() {
-        this("", "");
+        this("", 0L);
     }
 
-    public StringPair(String first, String second) {
+    public StringPair(String first, Long second) {
         this.first = first;
         this.second = second;
     }
 
-    public void set(String first, String second) {
+    public void set(String first, Long second) {
         this.first = first;
         this.second = second;
     }
@@ -34,28 +34,29 @@ public class StringPair  implements WritableComparable<StringPair> {
         return first;
     }
 
-    public String getSecond() {
+    public Long getSecond() {
         return second;
     }
 
     //@Override
     public void readFields(DataInput in) throws IOException {
         first = in.readUTF();
-        second = in.readUTF();
+        second = in.readLong();
     }
 
     //@Override
     public void write(DataOutput out) throws IOException {
         out.writeUTF(first);
-        out.writeUTF(second);
+        out.writeLong(second);
     }
 
     //@Override
     public int compareTo(StringPair o) {
         if (!first.equals(o.getFirst()))
             return first.compareTo(o.getFirst());
-        else if (!second.equals(o.getSecond()))
+        else if (!second.equals(o.getSecond()))  {
             return o.getSecond().compareTo(second);
+        }
         else
             return 0;
     }
