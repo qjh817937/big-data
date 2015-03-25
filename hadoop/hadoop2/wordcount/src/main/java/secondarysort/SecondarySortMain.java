@@ -8,6 +8,7 @@ import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
+import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
@@ -82,6 +83,7 @@ public class SecondarySortMain extends Configured implements Tool {
         job.setOutputValueClass(Text.class);       // 输出的 value 类型，在 OutputFormat 会检查
         job.setJarByClass(SecondarySortMain.class);
 
+        //job.setInputFormatClass(TextInputFormat.class);
         job.setMapperClass(MapClass.class);
         job.setPartitionerClass(DataPartitioner.class);
         job.setGroupingComparatorClass(DataGroupComparator.class);
