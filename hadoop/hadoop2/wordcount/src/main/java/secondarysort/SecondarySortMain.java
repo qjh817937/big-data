@@ -39,6 +39,12 @@ public class SecondarySortMain extends Configured implements Tool {
                     timestamp = Long.parseLong(kv[1]);
                 }
             }
+            if (id.equals("") || timestamp.equals("")) {
+                System.out.println("id/timestamp is empty, line=[" + line + "]");
+                return ;
+            }
+            System.out.println("id=" + id + ",timestamp=" + timestamp);
+
             StringPair sp = new StringPair(id, timestamp);
             context.write(sp, new Text(line));
         }
@@ -79,6 +85,7 @@ public class SecondarySortMain extends Configured implements Tool {
         job.setJobName("test");
 
         job.setMapOutputKeyClass(StringPair.class);
+        job.setMapOutputValueClass(Text.class);
         job.setOutputKeyClass(Text.class);          // 输出的 key 类型，在 OutputFormat 会检查
         job.setOutputValueClass(Text.class);       // 输出的 value 类型，在 OutputFormat 会检查
         job.setJarByClass(SecondarySortMain.class);
@@ -89,7 +96,7 @@ public class SecondarySortMain extends Configured implements Tool {
         job.setGroupingComparatorClass(DataGroupComparator.class);
         job.setReducerClass(ReduceClass.class);
 
-        job.setNumReduceTasks(2);
+        job.setNumReduceTasks(1);
         FileInputFormat.setInputPaths(job, new Path(inputpath));  //hdfs 中的输入路径
         FileOutputFormat.setOutputPath(job, new Path(outputpath)); //hdfs 中输出路径
 
