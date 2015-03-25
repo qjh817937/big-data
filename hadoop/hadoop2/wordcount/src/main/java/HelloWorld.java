@@ -1,10 +1,3 @@
-/**
- * Created with IntelliJ IDEA.
- * User: jianshen
- * Date: 15-3-24
- * Time: 下午4:21
- * To change this template use File | Settings | File Templates.
- */
 
 import java.io.File;
 import java.io.IOException;
