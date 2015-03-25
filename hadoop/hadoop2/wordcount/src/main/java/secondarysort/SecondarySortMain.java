@@ -27,7 +27,7 @@ public class SecondarySortMain extends Configured implements Tool {
             if (line == null || line.equals(""))
                 return;
             String id = "";
-            String timestamp = "";
+            Long timestamp = 0L;
             String[] kvs = line.split(",");
             for (String kvString: kvs) {
                 String[] kv = kvString.split("=");
@@ -35,7 +35,7 @@ public class SecondarySortMain extends Configured implements Tool {
                     id = kv[1];
                 }
                 else if(kv[0].equals("timestamp")) {
-                    timestamp = kv[1];
+                    timestamp = Long.parseLong(kv[1]);
                 }
             }
             if (id.equals("") || timestamp.equals("")) {
